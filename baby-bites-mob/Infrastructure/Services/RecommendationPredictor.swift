@@ -62,9 +62,9 @@ final class RecommendationPredictor {
     private func dataFrame(for data: [Favorite<Recipe>]) -> DataFrame {
     var dataFrame = DataFrame()
 
-    dataFrame.append(
-        column: Column(name: "ingredient", contents: data.map(\.model.ingredients))
-    )
+//    dataFrame.append(
+//        column: Column(name: "ingredient", contents: data.map(\.model.ingredients))
+//    )
 
     dataFrame.append(
         column: Column(name: "texture", contents: data.map(\.model.texture))
