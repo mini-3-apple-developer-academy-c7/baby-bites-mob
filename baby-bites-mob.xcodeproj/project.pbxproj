@@ -44,6 +44,13 @@
 		FAEA48462C771B56009D15C9 /* RecommendationCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48452C771B51009D15C9 /* RecommendationCard.swift */; };
 		FAEA48482C771D20009D15C9 /* RecommendationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48472C771D1B009D15C9 /* RecommendationListView.swift */; };
 		FAEA484A2C7731F7009D15C9 /* IngredientTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48492C7731F1009D15C9 /* IngredientTableView.swift */; };
+		FAEA484C2C77B4FD009D15C9 /* IngredientLibraryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA484B2C77B4EB009D15C9 /* IngredientLibraryController.swift */; };
+		FAEA484E2C77C2F2009D15C9 /* IngredientDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA484D2C77C2E8009D15C9 /* IngredientDetailsView.swift */; };
+		FAEA48502C77C320009D15C9 /* IngredientHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA484F2C77C31C009D15C9 /* IngredientHeader.swift */; };
+		FAEA48522C77C356009D15C9 /* RecipeInspirationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48512C77C350009D15C9 /* RecipeInspirationRow.swift */; };
+		FAEA48542C77E6E1009D15C9 /* RecipeDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48532C77E6DD009D15C9 /* RecipeDetailsView.swift */; };
+		FAEA48562C77E727009D15C9 /* RecipeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48552C77E722009D15C9 /* RecipeHeader.swift */; };
+		FAEA48582C77E967009D15C9 /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEA48572C77E964009D15C9 /* URLImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +113,13 @@
 		FAEA48452C771B51009D15C9 /* RecommendationCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationCard.swift; sourceTree = "<group>"; };
 		FAEA48472C771D1B009D15C9 /* RecommendationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationListView.swift; sourceTree = "<group>"; };
 		FAEA48492C7731F1009D15C9 /* IngredientTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTableView.swift; sourceTree = "<group>"; };
+		FAEA484B2C77B4EB009D15C9 /* IngredientLibraryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientLibraryController.swift; sourceTree = "<group>"; };
+		FAEA484D2C77C2E8009D15C9 /* IngredientDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDetailsView.swift; sourceTree = "<group>"; };
+		FAEA484F2C77C31C009D15C9 /* IngredientHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientHeader.swift; sourceTree = "<group>"; };
+		FAEA48512C77C350009D15C9 /* RecipeInspirationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeInspirationRow.swift; sourceTree = "<group>"; };
+		FAEA48532C77E6DD009D15C9 /* RecipeDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsView.swift; sourceTree = "<group>"; };
+		FAEA48552C77E722009D15C9 /* RecipeHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeHeader.swift; sourceTree = "<group>"; };
+		FAEA48572C77E964009D15C9 /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +378,8 @@
 		FAEA47FA2C74886E009D15C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA48572C77E964009D15C9 /* URLImageView.swift */,
+				FAEA484B2C77B4EB009D15C9 /* IngredientLibraryController.swift */,
 				FAEA483A2C75EE07009D15C9 /* IngredientCell.swift */,
 				FAEA48362C75E4A9009D15C9 /* IngredientsListView.swift */,
 				6DE293722C775A990018EE81 /* IngredientLibrary.swift */,
@@ -408,6 +424,9 @@
 		FAEA47FF2C748893009D15C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA48512C77C350009D15C9 /* RecipeInspirationRow.swift */,
+				FAEA484F2C77C31C009D15C9 /* IngredientHeader.swift */,
+				FAEA484D2C77C2E8009D15C9 /* IngredientDetailsView.swift */,
 				FAEA48492C7731F1009D15C9 /* IngredientTableView.swift */,
 				FAEA48342C75E2B4009D15C9 /* IngredientView.swift */,
 			);
@@ -425,6 +444,8 @@
 		FAEA48012C7488B5009D15C9 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				FAEA48552C77E722009D15C9 /* RecipeHeader.swift */,
+				FAEA48532C77E6DD009D15C9 /* RecipeDetailsView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -581,10 +602,12 @@
 				FAEA48442C76DE72009D15C9 /* RecommendationTracker.swift in Sources */,
 				FAEA47AE2C747A05009D15C9 /* ViewController.swift in Sources */,
 				FAEA484A2C7731F7009D15C9 /* IngredientTableView.swift in Sources */,
+				FAEA48502C77C320009D15C9 /* IngredientHeader.swift in Sources */,
 				FAEA48142C748B1A009D15C9 /* FetchAllRecipesUseCase.swift in Sources */,
 				FAEA480A2C748997009D15C9 /* RecipeDetailsViewModel.swift in Sources */,
 				FAEA47F02C748199009D15C9 /* RecipeRepository.swift in Sources */,
 				FAEA47F22C748230009D15C9 /* CloudKitRecipeRepository.swift in Sources */,
+				FAEA48522C77C356009D15C9 /* RecipeInspirationRow.swift in Sources */,
 				FAEA48082C74898F009D15C9 /* IngredientDetailsViewModel.swift in Sources */,
 				FAEA47AA2C747A05009D15C9 /* AppDelegate.swift in Sources */,
 				FAEA480C2C7489DB009D15C9 /* FetchIngredientUseCase.swift in Sources */,
@@ -592,6 +615,7 @@
 				FAEA47EB2C747EBD009D15C9 /* Ingredient.swift in Sources */,
 				FAEA48182C748F23009D15C9 /* CloudKitIngredientRepository.swift in Sources */,
 				FAEA48422C76DE4A009D15C9 /* RecommendationPredictor.swift in Sources */,
+				FAEA48582C77E967009D15C9 /* URLImageView.swift in Sources */,
 				FAEA48392C75E51A009D15C9 /* MainView.swift in Sources */,
 				FAEA48312C75E074009D15C9 /* FetchRecipesByIngredientUseCase.swift in Sources */,
 				FAEA48052C748977009D15C9 /* RecommendationsListViewModel.swift in Sources */,
@@ -602,8 +626,12 @@
 				FAEA47AC2C747A05009D15C9 /* SceneDelegate.swift in Sources */,
 				FAEA482D2C75DB8F009D15C9 /* Favorite.swift in Sources */,
 				FAEA48462C771B56009D15C9 /* RecommendationCard.swift in Sources */,
+				FAEA484C2C77B4FD009D15C9 /* IngredientLibraryController.swift in Sources */,
 				FAEA48032C748963009D15C9 /* IngredientsListViewModel.swift in Sources */,
+				FAEA48562C77E727009D15C9 /* RecipeHeader.swift in Sources */,
+				FAEA48542C77E6E1009D15C9 /* RecipeDetailsView.swift in Sources */,
 				FAEA47E92C747CD7009D15C9 /* Recipe.swift in Sources */,
+				FAEA484E2C77C2F2009D15C9 /* IngredientDetailsView.swift in Sources */,
 				FAEA48122C748B01009D15C9 /* FetchRecipeUseCase.swift in Sources */,
 				FAEA47F42C7487CA009D15C9 /* SaveRecipeUseCase.swift in Sources */,
 				FAEA48162C748B25009D15C9 /* FetchAllIngredientsUseCase.swift in Sources */,

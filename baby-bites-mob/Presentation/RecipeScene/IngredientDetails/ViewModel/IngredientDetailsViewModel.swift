@@ -13,6 +13,8 @@ class IngredientDetailsViewModel: ObservableObject {
     @Published var recipes: [Recipe] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    
+    @Published var ingredientID: String?
 
     private let fetchIngredientUseCase: FetchIngredientUseCase
     private let fetchRecipesByIngredientUseCase: FetchRecipesByIngredientUseCase
@@ -21,8 +23,8 @@ class IngredientDetailsViewModel: ObservableObject {
     init(ingredientID: String, fetchIngredientUseCase: FetchIngredientUseCase, fetchRecipesByIngredientUseCase: FetchRecipesByIngredientUseCase) {
         self.fetchIngredientUseCase = fetchIngredientUseCase
         self.fetchRecipesByIngredientUseCase = fetchRecipesByIngredientUseCase
+        self.ingredientID = ingredientID
         fetchIngredient(by: ingredientID)
-        fetchRecipesByIngredient(by: ingredientID)
     }
 
     func fetchIngredient(by ingredientID: String) {
@@ -43,9 +45,9 @@ class IngredientDetailsViewModel: ObservableObject {
         }
     }
     
-    func fetchRecipesByIngredient(by ingredientID: String) {
+    func fetchRecipesByIngredient() {
         isLoading = true
-        fetchRecipesByIngredientUseCase.execute(ingredientID: ingredientID) { [weak self] result in
+        fetchRecipesByIngredientUseCase.execute(ingredientID: self.ingredientID ?? "") { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoading = false
                 switch result {

@@ -21,22 +21,27 @@ class Recipe: Equatable, Identifiable {
     enum Texture: String {
         case pureed
         case mashed
+        case softLumps
+        case finelyChopped
+        case softSolid
+        
         case smooth
         case softChunks
         case lumpy
     }
     
     let id: Identifier
-    var title: String?
-    var category: Category?
-    var imageUrl: String?
-    var description: String?
-    var cookingTime: TimeInterval?
-    var texture: Texture?
+    let title: String?
+    let category: Category?
+    let imageUrl: String?
+    let description: String?
+    let cookingTime: TimeInterval?
+    let texture: Texture?
     var ingredients: Ingredient?
-    var preparationInstructions: NSAttributedString?
+    var body: String?
+//    let preparationInstructions: NSAttributedString?
     
-    init(record: CKRecord, fetchIngredient: ((CKRecord.ID, @escaping (Ingredient?) -> Void) -> Void)? = nil) {
+    init(record: CKRecord, ingredient: Ingredient? = nil) {
         self.id = record.recordID.recordName
         self.title = record["title"] as? String ?? ""
         if let categoryRaw = record["category"] as? String {
@@ -52,18 +57,19 @@ class Recipe: Equatable, Identifiable {
         } else {
             self.texture = nil
         }
-        if let ingredientReference = record["ingredients"] as? CKRecord.Reference {
-                fetchIngredient?(ingredientReference.recordID) { ingredient in
-                self.ingredients = ingredient
-            }
-        } else {
-            self.ingredients = nil
-        }
-        if let instructionsData = record["preparationInstructions"] as? Data {
-            self.preparationInstructions = NSKeyedUnarchiver.unarchiveObject(with: instructionsData) as? NSAttributedString
-        }
-        print(self.id)
-        print("selesai")
+        self.ingredients = ingredient
+        self.body = record["body"] as? String ?? ""
+//        self.preparationInstructions = nil
+//        if let ingredientReference = record["ingredients"] as? CKRecord.Reference {
+//                fetchIngredient?(ingredientReference.recordID) { ingredient in
+//                self.ingredients = ingredient
+//            }
+//        } else {
+//            self.ingredients = nil
+//        }
+//        if let instructionsData = record["preparationInstructions"] as? Data {
+//            self.preparationInstructions = NSKeyedUnarchiver.unarchiveObject(with: instructionsData) as? NSAttributedString
+//        }
     }
 
     func toCKRecord() -> CKRecord {
@@ -72,16 +78,17 @@ class Recipe: Equatable, Identifiable {
         record["category"] = category?.rawValue as CKRecordValue?
         record["imageUrl"] = imageUrl as CKRecordValue?
         record["description"] = description as CKRecordValue?
+        record["body"] = body as CKRecordValue?
         record["cookingTime"] = cookingTime as CKRecordValue?
         record["texture"] = texture?.rawValue as CKRecordValue?
-        if let instructions = preparationInstructions {
-            record["preparationInstructions"] = NSKeyedArchiver.archivedData(withRootObject: instructions) as CKRecordValue
-        }
-        if let ingredient = ingredients {
-            let ingredientRecord = ingredient.toCKRecord()
-            let reference = CKRecord.Reference(recordID: ingredientRecord.recordID, action: .none)
-            record["ingredients"] = reference
-        }
+//        if let instructions = preparationInstructions {
+//            record["preparationInstructions"] = NSKeyedArchiver.archivedData(withRootObject: instructions) as CKRecordValue
+//        }
+//        if let ingredient = ingredients {
+//            let ingredientRecord = ingredient.toCKRecord()
+//            let reference = CKRecord.Reference(recordID: ingredientRecord.recordID, action: .none)
+//            record["ingredients"] = reference
+//        }
         return record
     }
     

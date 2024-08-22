@@ -25,45 +25,21 @@ class CloudKitRecipeRepository: RecipeRepository {
             if let error = error {
                 completion(.failure(error))
             } else if let records = results {
-                print(records)
-//                let fetchIngredient: (CKRecord.ID, @escaping (Ingredient?) -> Void) -> Void = { ingredientID, completion in
-//                    self?.ingredientRepository.fetchIngredient(by: ingredientID.recordName) { result in
-//                        switch result {
-//                        case .success(let ingredient):
-//                            completion(ingredient)
-//                        case .failure:
-//                            completion(nil)
-//                        }
-//                    }
-//                }
+                var recipes: [Recipe] = []
 
-//                let recipesGroup = DispatchGroup()
-//                var recipes: [Recipe] = []
-//                var fetchError: Error?
-//
-//                for record in records {
-//                    recipesGroup.enter()
-//                    print(record)
-//                    let recipe = Recipe(record: record)
-//                    print(recipe)
-//                    recipes.append(recipe)
-//                    recipesGroup.leave()
-//                }
-//                
-//                print(recipes)
-//
-//                recipesGroup.notify(queue: .main) {
-//                    if let error = fetchError {
-//                        completion(.failure(error))
-//                    } else {
-//                        completion(.success(recipes))
-//                    }
-//                }
-                let recipes = records.map { Recipe(record: $0) }
-                print(recipes)
+                for record in records {
+                    let recipe = Recipe(record: record)
+                    print(recipe)
+                    recipes.append(recipe)
+                }
                 completion(.success(recipes))
             }
         }
+    }
+    
+    func extractRecordName(from reference: CKRecord.Reference?) -> String? {
+        let recordID = reference?.recordID
+        return recordID?.recordName
     }
 
     func fetchRecipesByIngredients(by ingredientID: String, completion: @escaping (Result<[Recipe], Error>) -> Void) {
@@ -77,35 +53,50 @@ class CloudKitRecipeRepository: RecipeRepository {
         publicDatabase.perform(query, inZoneWith: nil) { [weak self] results, error in
             if let error = error {
                 completion(.failure(error))
-            } else if let records = results {
-                let recipesGroup = DispatchGroup()
-                var recipes = [Recipe]()
-                var fetchError: Error?
+                return
+            }
+
+            guard let records = results else {
+                completion(.success([]))
+                return
+            }
+            
+            let recipesGroup = DispatchGroup()
+            var recipes = [Recipe]()
+            var fetchError: Error?
+
+            for record in records {
+                recipesGroup.enter()
                 
-                self?.fetchAllRecipes { result in
-                    switch result {
-                    case .success(let allRecipes):
-                        recipes = allRecipes
-                        print(recipes)
-                        recipesGroup.notify(queue: .main) {
-                            if let error = fetchError {
-                                completion(.failure(error))
-                            } else {
-                                print(recipes)
-                                let filteredRecipes = recipes.filter { recipe in
-                                    print(recipe.ingredients)
-                                    print(ingredientID)
-                                    return recipe.ingredients?.id == ingredientID
-                                }
-                                print(filteredRecipes)
-                                completion(.success(filteredRecipes))
-                            }
+                let recordName = self?.extractRecordName(from: record["ingredients"] as? CKRecord.Reference)
+                if recordName != ingredientID {
+                    defer { recipesGroup.leave() }
+                    continue
+                } else {
+                    self?.ingredientRepository.fetchIngredient(by: ingredientID) { result in
+                        defer { recipesGroup.leave() }
+                        switch result {
+                        case .success(let ingredient):
+                            print("1001")
+                            let recipe = Recipe(record: record, ingredient: ingredient)
+                            print(recipe.title)
+                            recipes.append(recipe)
+                        case .failure(let error):
+                            print("Gagal fetching ingredient: \(error)")
+                            fetchError = error // Capture the error to return later
                         }
-
-                    case .failure(let error):
-                        print("Gagal")
                     }
-
+                }
+            }
+            
+            
+            recipesGroup.notify(queue: .main) {
+                if let error = fetchError {
+                    completion(.failure(error))
+                    print(error)
+                } else {
+                    print(recipes)
+                    completion(.success(recipes))
                 }
             }
         }
