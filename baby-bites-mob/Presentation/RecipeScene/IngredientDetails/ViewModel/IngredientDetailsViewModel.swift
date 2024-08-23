@@ -39,7 +39,6 @@ class IngredientDetailsViewModel: ObservableObject {
                 case .failure(let error):
                     self?.ingredient = nil
                     self?.errorMessage = error.localizedDescription
-                    print("Gagal")
                 }
             }
         }
@@ -54,11 +53,9 @@ class IngredientDetailsViewModel: ObservableObject {
                 case .success(let recipes):
                     self?.recipes = recipes
                     self?.errorMessage = nil
-                    print(recipes)
                 case .failure(let error):
                     self?.recipes = []
                     self?.errorMessage = error.localizedDescription
-                    print("Gagal")
                 }
             }
         }

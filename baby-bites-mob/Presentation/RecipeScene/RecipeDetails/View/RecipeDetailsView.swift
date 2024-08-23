@@ -20,10 +20,15 @@ struct RecipeDetailView: View {
                         Color(.systemGray6).edgesIgnoringSafeArea(.all)
                         
                         VStack {
-                            AsyncImage(url: URL(string: recipe.imageUrl ?? ""))
-                                .frame(width: 400, height: 300)
-                                .clipped()
-                            
+                            AsyncImage(url: URL(string: recipe.imageUrl ?? "")) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 400, height: 400)
+                                            .clipped()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }                            
                             Spacer()
                         }
                         
@@ -37,7 +42,7 @@ struct RecipeDetailView: View {
                         .padding()
                         .background(Color.white)
                         .cornerRadius(30)
-                        .offset(y: 235)
+                        .offset(y: 300)
                     }
                     
                     VStack(alignment: .leading, spacing: 16) {
@@ -62,7 +67,7 @@ struct RecipeDetailView: View {
                                 .padding(.top, -15)
                                 .padding()
                             
-                            if let whatYouNeed = extractWhatYouNeed(from: recipe.description ?? "") {
+                            if let whatYouNeed = extractWhatYouNeed(from: recipe.howTo ?? "") {
                                 Text(whatYouNeed)
                                     .font(.body)
                                     .padding(.top, -55)
@@ -78,7 +83,7 @@ struct RecipeDetailView: View {
                                 .padding(.top, -70)
                                 .padding()
                             
-                            if let howToMake = extractHowToMake(from: recipe.description ?? "") {
+                            if let howToMake = extractHowToMake(from: recipe.howTo ?? "") {
                                 Text(howToMake)
                                     .font(.body)
                                     .padding(.top, -105)
@@ -104,6 +109,7 @@ struct RecipeDetailView: View {
                     }
                     .padding(.bottom, 30)
                 }
+                Spacer(minLength: 150)
             }
             .navigationTitle("Dish Detail")
             .navigationBarTitleDisplayMode(.inline)
@@ -124,9 +130,6 @@ struct RecipeDetailView: View {
                     }
                 }
             )
-            
-            CustomTabBar2()
-                
         }
         .edgesIgnoringSafeArea(.bottom)
     }
@@ -179,44 +182,5 @@ struct RatingView: View {
             .frame(maxWidth: .infinity, alignment: .center)
         }
         .padding()
-    }
-}
-
-
-struct CustomTabBar2: View {
-    var body: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .fill(Color.gray.opacity(0.5))
-                .frame(height: 0.5)
-            
-            HStack {
-                Spacer()
-                CustomTabBarItem2(icon: "hand.thumbsup", text: "Recommendation")
-                Spacer()
-                CustomTabBarItem2(icon: "book.closed.fill", text: "Library")
-                Spacer()
-            }
-            .padding(.vertical, 25)
-            .background(Color.white)
-            .cornerRadius(0)
-            .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 2)
-        }
-    }
-}
-
-struct CustomTabBarItem2: View {
-    let icon: String
-    let text: String
-    
-    var body: some View {
-        VStack {
-            Image(systemName: icon)
-                .font(.system(size: 20))
-                .foregroundColor(.black)
-            Text(text)
-                .font(.system(size: 12))
-                .foregroundColor(Color.gray)
-        }
     }
 }
