@@ -18,9 +18,15 @@ struct IngredientDetailView: View {
                     Color(.systemGray6).edgesIgnoringSafeArea(.all)
                     
                     VStack {
-                        AsyncImage(url: URL(string: ingredientDetailsViewModel.ingredient?.imageUrl ?? ""))
-                            .frame(width: 400, height: 300)
-                            .clipped()
+                        AsyncImage(url: URL(string: ingredientDetailsViewModel.ingredient?.imageUrl ?? "")) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 400, height: 400)
+                                        .clipped()
+                                } placeholder: {
+                                    ProgressView()
+                                }
                         
                         Spacer()
                     }
@@ -36,7 +42,7 @@ struct IngredientDetailView: View {
                     .background(Color.white)
                     .cornerRadius(30)
                     .shadow(radius: 0.5)
-                    .offset(y: 235) // overlapping frame with photo
+                    .offset(y: 300) // overlapping frame with photo
                 }
                 
                 VStack(alignment: .leading, spacing: 16) {

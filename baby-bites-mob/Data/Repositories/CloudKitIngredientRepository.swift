@@ -21,7 +21,6 @@ class CloudKitIngredientRepository: IngredientRepository {
                 completion(.failure(error))
             } else if let records = results {
                 let ingredients = records.map { Ingredient(record: $0) }
-                print(ingredients)
                 completion(.success(ingredients))
             } else {
                 completion(.success([])) // Handle the case where no ingredients are found

@@ -23,7 +23,6 @@ class IngredientsListViewModel: ObservableObject {
 
     func fetchAllIngredients() {
         isLoading = true
-        print("MASOOOK")
         fetchIngredientsUseCase.execute() { [weak self] result in
             DispatchQueue.main.async {
                 self?.isLoading = false
@@ -31,11 +30,9 @@ class IngredientsListViewModel: ObservableObject {
                 case .success(let ingredients):
                     self?.ingredients = ingredients
                     self?.errorMessage = nil
-                    print("1")
                 case .failure(let error):
                     self?.ingredients = []
                     self?.errorMessage = error.localizedDescription
-                    print("2")
                 }
             }
         }

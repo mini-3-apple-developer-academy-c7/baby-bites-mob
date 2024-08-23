@@ -29,7 +29,6 @@ class CloudKitRecipeRepository: RecipeRepository {
 
                 for record in records {
                     let recipe = Recipe(record: record)
-                    print(recipe)
                     recipes.append(recipe)
                 }
                 completion(.success(recipes))
@@ -47,8 +46,6 @@ class CloudKitRecipeRepository: RecipeRepository {
         let query = CKQuery(recordType: "Recipe", predicate: NSPredicate(value: true))
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         query.sortDescriptors = [sortDescriptor]
-        
-        print("Masuk kesini coyy")
 
         publicDatabase.perform(query, inZoneWith: nil) { [weak self] results, error in
             if let error = error {
@@ -77,13 +74,10 @@ class CloudKitRecipeRepository: RecipeRepository {
                         defer { recipesGroup.leave() }
                         switch result {
                         case .success(let ingredient):
-                            print("1001")
                             let recipe = Recipe(record: record, ingredient: ingredient)
-                            print(recipe.title)
                             recipes.append(recipe)
                         case .failure(let error):
-                            print("Gagal fetching ingredient: \(error)")
-                            fetchError = error // Capture the error to return later
+                            fetchError = error
                         }
                     }
                 }
@@ -93,9 +87,7 @@ class CloudKitRecipeRepository: RecipeRepository {
             recipesGroup.notify(queue: .main) {
                 if let error = fetchError {
                     completion(.failure(error))
-                    print(error)
                 } else {
-                    print(recipes)
                     completion(.success(recipes))
                 }
             }

@@ -67,17 +67,21 @@ struct IngredientItemView: View {
     var body: some View {
         NavigationLink(destination: IngredientDetailView(ingredientDetailsViewModel: ingredientDetailsViewModel)) {
             VStack(alignment: .leading) {
-                Image(ingredient.imageUrl)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 130, height: 100)
-                    .clipped()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(12)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-                    )
+                AsyncImage(url: URL(string: ingredient.imageUrl)) { image in
+                            image
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 130, height: 100)
+                                .clipped()
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(12)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+                                )
+                        } placeholder: {
+                            ProgressView()
+                        }
                 
                 Text(ingredient.name)
                     .font(.system(size: 16, weight: .bold))

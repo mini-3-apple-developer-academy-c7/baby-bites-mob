@@ -12,11 +12,11 @@ struct RecipeHeader: View {
     
     private func categoryBackgroundColor(for category: String) -> Color {
         switch category.lowercased() {
-        case "vegetable":
+        case "vegetables":
             return Color(red: 0.38, green: 1, blue: 0).opacity(0.2)
-        case "fruit":
+        case "fruits":
             return Color(red: 0, green: 0.64, blue: 1).opacity(0.2)
-        case "protein":
+        case "proteins":
             return Color(red: 1, green: 0, blue: 0).opacity(0.2)
         default:
             return Color.gray

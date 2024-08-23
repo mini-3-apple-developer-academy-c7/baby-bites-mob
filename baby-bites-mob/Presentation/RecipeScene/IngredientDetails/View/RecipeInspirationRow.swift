@@ -19,9 +19,15 @@ struct RecipeInspirationRow: View {
                         .foregroundColor(.clear)
                         .frame(width: 149, height: 100)
                         .background(
-                            AsyncImage(url: URL(string: recipe.imageUrl ?? ""))
-                                .frame(width: 149, height: 100)
-                                .clipped()
+                            AsyncImage(url: URL(string: recipe.imageUrl ?? "")) { image in
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fill)
+                                            .frame(width: 149, height: 100)
+                                            .clipped()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }    
                         )
                     
                     // Text Section

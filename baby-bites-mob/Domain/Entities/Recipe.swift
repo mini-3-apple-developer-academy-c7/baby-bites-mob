@@ -24,10 +24,6 @@ class Recipe: Equatable, Identifiable {
         case softLumps
         case finelyChopped
         case softSolid
-        
-        case smooth
-        case softChunks
-        case lumpy
     }
     
     let id: Identifier
@@ -39,6 +35,7 @@ class Recipe: Equatable, Identifiable {
     let texture: Texture?
     var ingredients: Ingredient?
     var body: String?
+    var howTo: String?
 //    let preparationInstructions: NSAttributedString?
     
     init(record: CKRecord, ingredient: Ingredient? = nil) {
@@ -59,6 +56,7 @@ class Recipe: Equatable, Identifiable {
         }
         self.ingredients = ingredient
         self.body = record["body"] as? String ?? ""
+        self.howTo = record["howTo"] as? String ?? ""
 //        self.preparationInstructions = nil
 //        if let ingredientReference = record["ingredients"] as? CKRecord.Reference {
 //                fetchIngredient?(ingredientReference.recordID) { ingredient in
@@ -79,6 +77,7 @@ class Recipe: Equatable, Identifiable {
         record["imageUrl"] = imageUrl as CKRecordValue?
         record["description"] = description as CKRecordValue?
         record["body"] = body as CKRecordValue?
+        record["howTo"] = howTo as CKRecordValue?
         record["cookingTime"] = cookingTime as CKRecordValue?
         record["texture"] = texture?.rawValue as CKRecordValue?
 //        if let instructions = preparationInstructions {
